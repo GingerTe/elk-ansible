@@ -1,0 +1,1 @@
+elk1  ansible_ssh_host=elk.mededtech.ru  ansible_ssh_port=10230  ansible_ssh_user=user1  ansible_python_interpreter=/usr/bin/python3

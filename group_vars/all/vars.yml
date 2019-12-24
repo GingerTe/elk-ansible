@@ -1,0 +1,11 @@
+---
+
+docker_edition: ce
+docker_install_compose: true
+docker_compose_version: 1.25.0
+docker_users: [user1]
+main_dir: /home/user1/elk
+
+es_user: elastic
+
+es_version: 7.4.1

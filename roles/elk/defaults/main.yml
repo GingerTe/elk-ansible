@@ -1,0 +1,9 @@
+---
+
+es_version: 7.4.1
+logstash_version: "{{ es_version }}"
+kibana_version: "{{ es_version }}"
+
+es_port: 9200
+logstash_port: 5044
+kibana_port: 5601

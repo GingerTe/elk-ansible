@@ -1,0 +1,58 @@
+---
+
+- name: Create directories
+  file:
+    state: directory
+    dest: "{{ main_dir }}"
+#   with_items:
+#    - ""
+#    - elasticsearch/config
+#    - kibana/config
+#    - logstash/config
+#    - logstash/pipeline
+
+- name: Copy compose file and env vars
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ main_dir }}/{{ item }}"
+  with_items:
+    - docker-compose.yml
+    - .env
+
+- name: Copy config files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ main_dir }}"
+  with_items:
+   - elasticsearch
+   - kibana
+   - logstash
+
+- name: Create and start services
+  docker_service:
+    project_src: "{{ main_dir }}"
+    state: absent
+  register: output
+
+
+- name: Tear down existing services
+  docker_service:
+    project_src: "{{ main_dir }}"
+    state: absent
+
+- name: Create and start services
+  docker_service:
+    project_src: "{{ main_dir }}"
+  register: output
+
+- debug:
+    var: output
+
+- name: Run `docker-compose up` again
+  docker_service:
+    project_src: "{{ main_dir }}"
+    build: no
+  register: output
+
+- debug:
+    var: output
